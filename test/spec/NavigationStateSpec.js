@@ -1,13 +1,5 @@
 describe("NavigationState", function () {
     var currentState;
-//
-//  beforeEach(function() {
-//    currentState = new NavigationState("/hine");
-//  });
-//
-//  it("has three segments", function() {
-//    expect(currentState).toBePlaying(song);
-//  });
 
     describe("Segments", function () {
         beforeEach(function () {
