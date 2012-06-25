@@ -99,16 +99,16 @@ describe("NavigationState", function () {
     describe("State appending  by string", function () {
         it("can be appended by appending a string", function () {
             currentState.append('original');
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original');
             currentState.append('zoom');
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom');
         });
 
         it("can be appended by appending a string, also if it has leading or trailing slashes", function () {
             currentState.append('/original');
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original');
             currentState.append('zoom/');
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom');
         });
 
         it("can be appended by appending a string of multiple segments", function () {
@@ -127,9 +127,9 @@ describe("NavigationState", function () {
             var foreignState1 = new NavigationState("original");
             var foreignState2 = new NavigationState("zoom");
             currentState.append(foreignState1);
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original');
             currentState.append(foreignState2);
-            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom/');
+            expect(currentState.getPath()).toEqual('/gallery/holiday/1/original/zoom');
         });
 
         it("can be appended by appending a state of multiple segments", function () {
@@ -144,26 +144,26 @@ describe("NavigationState", function () {
     describe("State prepending by string", function () {
         it("can be prepended by a string", function () {
             currentState.prepend('home');
-            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1');
             currentState.prepend('site');
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
 
         it("can be prepended by a string, also if it has leading or trailing slashes", function () {
             currentState.prepend('/home');
-            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1');
             currentState.prepend('site/');
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
 
         it("can be prepended by a string of multiple segments", function () {
             currentState.prepend('site/home');
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
 
         it("can be prepended by a string of multiple segments, also if it has leading or trailing slashes", function () {
             currentState.prepend('/site/home/');
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
     });
 
@@ -172,29 +172,29 @@ describe("NavigationState", function () {
             var foreignState1 = new NavigationState("site");
             var foreignState2 = new NavigationState("home");
             currentState.prepend(foreignState1);
-            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/home/gallery/holiday/1');
             currentState.prepend(foreignState2);
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
 
         it("can be prepended by a state of multiple segments", function () {
             var foreignState = new NavigationState("site/home");
             currentState.prepend(foreignState);
-            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1/');
+            expect(currentState.getPath()).toEqual('/site/home/gallery/holiday/1');
         });
 
     });
 
     describe("Other", function () {
         it("Can clone", function () {
-            expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
+            expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1');
             expect(currentState.clone()).not.toEqual(currentState);
         });
 
         it("handles masks", function () {
 
             var foreignState = new NavigationState("/*/*/2");
-            expect(foreignState.mask(currentState).getPath()).toEqual('/gallery/holiday/2/');
+            expect(foreignState.mask(currentState).getPath()).toEqual('/gallery/holiday/2');
 
 
             //expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
