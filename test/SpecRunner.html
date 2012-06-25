@@ -1,44 +1,47 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Jasmine Spec Runner</title>
+    <title>Jasmine Spec Runner</title>
 
-  <link rel="stylesheet" type="text/css" href="lib/jasmine-1.2.0/jasmine.css">
-  <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine.js"></script>
-  <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine-html.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/jasmine-1.2.0/jasmine.css">
+    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine-html.js"></script>
 
-  <!-- include source files here... -->
-  <script type="text/javascript" src="spec/NavigationStateSpec.js"></script>
+    <!-- include source files here... -->
+    <script type="text/javascript" src="spec/NavigationStateSpec.js"></script>
 
-  <script type="text/javascript">
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
+    <!-- Navigator.js -->
+    <script type="text/javascript" src="../bin/NavigationState.js"></script>
 
-      var htmlReporter = new jasmine.HtmlReporter();
+    <script type="text/javascript">
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
 
-      jasmineEnv.addReporter(htmlReporter);
+            var htmlReporter = new jasmine.HtmlReporter();
 
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
+            jasmineEnv.addReporter(htmlReporter);
 
-      var currentWindowOnload = window.onload;
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
 
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
+            var currentWindowOnload = window.onload;
 
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
 
-    })();
-  </script>
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+    </script>
 
 </head>
 
