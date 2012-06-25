@@ -40,7 +40,7 @@ describe("NavigationState", function () {
         });
 
         it("has 1 as the last segment", function () {
-            expect(currentState.getFirstSegment()).toEqual('1');
+            expect(currentState.getLastSegment()).toEqual('1');
         });
     });
 
