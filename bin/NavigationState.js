@@ -18,6 +18,31 @@
       return this.path;
     };
 
+    NavigationState.prototype.getSegments = function() {
+      var result;
+      result = this.path.split('/');
+      result.splice(0, 1);
+      return result;
+    };
+
+    NavigationState.prototype.getSegment = function(index) {
+      var segments;
+      segments = this.getSegments();
+      return segments[index];
+    };
+
+    NavigationState.prototype.getFirstSegment = function() {
+      var segments;
+      segments = this.getSegments();
+      return segments[0];
+    };
+
+    NavigationState.prototype.getLastSegment = function() {
+      var segments;
+      segments = this.getSegments();
+      return segments[segments.length - 1];
+    };
+
     return NavigationState;
 
   })();
