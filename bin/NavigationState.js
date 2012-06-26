@@ -15,6 +15,9 @@
     }
 
     NavigationState.prototype._setPath = function(path) {
+      if (path instanceof NavigationState === true) {
+        path = path.getSegments();
+      }
       if (Array.isArray(path)) {
         path = path.join('/');
       }
