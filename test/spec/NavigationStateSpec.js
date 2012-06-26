@@ -191,8 +191,8 @@ describe("NavigationState", function () {
 
 	describe("State prepending by state", function () {
 		it("can be prepended multiple times by appending a state", function () {
-			var foreignState1 = new NavigationState("site");
-			var foreignState2 = new NavigationState("home");
+			var foreignState1 = new NavigationState("home");
+			var foreignState2 = new NavigationState("site");
 			currentState.prepend(foreignState1);
 			expect(currentState.getPath()).toEqual('/home/gallery/holiday/1/');
 			currentState.prepend(foreignState2);
