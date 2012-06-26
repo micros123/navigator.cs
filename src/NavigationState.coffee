@@ -82,6 +82,5 @@ window.NavigationState = class NavigationState
         # return true
         true
 
-
-
+    # create a new NavigationState and return it
     clone: -> new NavigationState(@path)
