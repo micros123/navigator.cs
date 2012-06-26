@@ -8,6 +8,10 @@ window.NavigationState = class NavigationState
 
     # take care of the trailing and ending slashes, and replaces spaces with dashes
     _setPath: (path) ->
+
+        # if the input is a NavigationSate, make it an array
+        path = path.getSegments() if path instanceof NavigationState is true
+
         # if the input is an array, join them with slashes
         path = path.join('/') if Array.isArray(path)
         # add a slash in the begin if it isn't present
@@ -58,6 +62,7 @@ window.NavigationState = class NavigationState
         foreignState = new NavigationState(foreignState) if foreignSegment instanceof NavigationState is false
 
         segments = @getSegments()
+
         segments.push(foreignSegment) for foreignSegment in foreignState.getSegments()
 
         @_setPath(segments)
