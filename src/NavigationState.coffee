@@ -67,4 +67,21 @@ window.NavigationState = class NavigationState
 
         @_setPath(segments)
 
+    contains: (foreignState) ->
+        foreignState = new NavigationState(foreignState) if foreignSegment instanceof NavigationState is false
+
+        foreignSegments = foreignState.getSegments()
+        segments = @getSegments()
+
+        false if foreignSegments.length > segments.length
+
+        for foreignSegment,i in foreignSegments
+            segment = segments[i]
+            false if segment isnt foreignSegment and (segment isnt '*' or foreignSegment isnt '*')
+
+        # return true
+        true
+
+
+
     clone: -> new NavigationState(@path)

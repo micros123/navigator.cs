@@ -90,6 +90,26 @@
       return this._setPath(segments);
     };
 
+    NavigationState.prototype.contains = function(foreignState) {
+      var foreignSegment, foreignSegments, i, segment, segments, _i, _len;
+      if (foreignSegment instanceof NavigationState === false) {
+        foreignState = new NavigationState(foreignState);
+      }
+      foreignSegments = foreignState.getSegments();
+      segments = this.getSegments();
+      if (foreignSegments.length > segments.length) {
+        false;
+      }
+      for (i = _i = 0, _len = foreignSegments.length; _i < _len; i = ++_i) {
+        foreignSegment = foreignSegments[i];
+        segment = segments[i];
+        if (segment !== foreignSegment && (segment !== '*' || foreignSegment !== '*')) {
+          false;
+        }
+      }
+      return true;
+    };
+
     NavigationState.prototype.clone = function() {
       return new NavigationState(this.path);
     };
