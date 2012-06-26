@@ -79,7 +79,6 @@ window.NavigationState = class NavigationState
             segment = segments[i]
             false if segment isnt foreignSegment and (segment isnt '*' or foreignSegment isnt '*')
 
-        # return true
         true
 
     # create a new NavigationState and return it
