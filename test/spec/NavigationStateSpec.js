@@ -1,10 +1,12 @@
 describe("NavigationState", function () {
 	var currentState;
 
+    beforeEach(function () {
+        currentState = new NavigationState("/gallery/holiday/1/");
+    });
+
 	describe("Segments", function () {
-		beforeEach(function () {
-			currentState = new NavigationState("/gallery/holiday/1/");
-		});
+
 
 		it("has three segments", function () {
 			expect(currentState.getSegments().length).toEqual(3);
