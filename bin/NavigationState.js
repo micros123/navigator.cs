@@ -11,11 +11,80 @@
   window.NavigationState = NavigationState = (function() {
 
     function NavigationState(path) {
-      this.path = path;
+      this._setPath(path);
     }
+
+    NavigationState.prototype._setPath = function(path) {
+      if (Array.isArray(path)) {
+        path = path.join('/');
+      }
+      if (path.charAt(0) !== '/') {
+        path = '/' + path;
+      }
+      if (path.charAt(path.length - 1) !== '/') {
+        path = path + '/';
+      }
+      path = path.replace(/\/+/g, '/');
+      path = path.replace(/\s/g, '-');
+      return this.path = path;
+    };
 
     NavigationState.prototype.getPath = function() {
       return this.path;
+    };
+
+    NavigationState.prototype.getSegments = function() {
+      var result;
+      result = this.path.split('/');
+      result.shift();
+      result.pop();
+      return result;
+    };
+
+    NavigationState.prototype.getSegment = function(index) {
+      var segments;
+      segments = this.getSegments();
+      return segments[index];
+    };
+
+    NavigationState.prototype.getFirstSegment = function() {
+      var segments;
+      segments = this.getSegments();
+      return segments[0];
+    };
+
+    NavigationState.prototype.getLastSegment = function() {
+      var segments;
+      segments = this.getSegments();
+      return segments[segments.length - 1];
+    };
+
+    NavigationState.prototype.prepend = function(foreignState) {
+      var foreignSegment, segments, _i, _len, _ref;
+      if (foreignSegment instanceof NavigationState === false) {
+        foreignState = new NavigationState(foreignState);
+      }
+      segments = this.getSegments();
+      _ref = foreignState.getSegments().reverse();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        foreignSegment = _ref[_i];
+        segments.unshift(foreignSegment);
+      }
+      return this._setPath(segments);
+    };
+
+    NavigationState.prototype.append = function(foreignState) {
+      var foreignSegment, segments, _i, _len, _ref;
+      if (foreignSegment instanceof NavigationState === false) {
+        foreignState = new NavigationState(foreignState);
+      }
+      segments = this.getSegments();
+      _ref = foreignState.getSegments();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        foreignSegment = _ref[_i];
+        segments.push(foreignSegment);
+      }
+      return this._setPath(segments);
     };
 
     return NavigationState;
