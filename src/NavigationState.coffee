@@ -66,3 +66,5 @@ window.NavigationState = class NavigationState
         segments.push(foreignSegment) for foreignSegment in foreignState.getSegments()
 
         @_setPath(segments)
+
+    clone: -> new NavigationState(@path)
