@@ -12,29 +12,64 @@
 
     NavigationState.name = 'NavigationState';
 
-    NavigationState.DELIMITER = '/';
-
-    NavigationState.prototype._path = '';
-
     function NavigationState(segments) {
       if (segments instanceof Array) {
-        console.log('segments is array');
-        segments = segments.join(NavigationState.DELIMITER);
+        segments = segments.join('/');
       }
       this.setPath(segments);
     }
 
     NavigationState.prototype.setPath = function(path) {
-      var removeDoubleSlashes;
-      this._path = NavigationState.DELIMITER + path.toLowerCase() + NavigationState.DELIMITER;
-      removeDoubleSlashes = new RegExp("\/+", "g");
-      this._path = this._path.replace(removeDoubleSlashes, "/");
-      this._path = this._path.replace(/\s+/g, "-");
-      return console.log(this._path);
+      this._path = '/' + path.toLowerCase() + '/';
+      this._path = this._path.replace(new RegExp("\/+", "g"), "/");
+      return this._path = this._path.replace(/\s+/g, "-");
     };
 
     NavigationState.prototype.getPath = function() {
       return this._path;
+    };
+
+    NavigationState.prototype.setSegments = function(segments) {
+      return this.setPath(segments.join('/'));
+    };
+
+    NavigationState.prototype.getSegments = function() {
+      var segments;
+      segments = this._path.split("/");
+      segments.pop();
+      segments.shift();
+      return segments;
+    };
+
+    NavigationState.prototype.getSegment = function(index) {
+      return this.getSegments()[index];
+    };
+
+    NavigationState.prototype.getFirstSegment = function() {
+      return this.getSegment(0);
+    };
+
+    NavigationState.prototype.getLastSegment = function() {
+      var segments;
+      segments = this.getSegments();
+      return this.getSegment(segments.length - 1);
+    };
+
+    NavigationState.prototype.contains = function(foreignState) {
+      var foreignSegment, foreignSegments, index, nativeSegment, nativeSegments, _i, _len;
+      foreignSegments = foreignState.getSegments();
+      nativeSegments = this.getSegments();
+      if (foreignSegments.length > nativeSegments.length) {
+        return false;
+      }
+      for (index = _i = 0, _len = foreignSegments.length; _i < _len; index = ++_i) {
+        foreignSegment = foreignSegments[index];
+        nativeSegment = nativeSegments[index];
+        if (foreignSegment !== nativeSegment && (foreignSegment !== "*" || nativeSegment !== "*")) {
+          return false;
+        }
+      }
+      return true;
     };
 
     return NavigationState;
