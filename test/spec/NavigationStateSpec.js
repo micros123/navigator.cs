@@ -210,16 +210,11 @@ describe("NavigationState", function () {
 	describe("Other", function () {
 		it("Can clone", function () {
 			expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
-			expect(currentState.clone()).not.toEqual(currentState);
 		});
 
 		it("handles masks", function () {
-
 			var foreignState = new NavigationState("/*/*/2/");
 			expect(foreignState.mask(currentState).getPath()).toEqual('/gallery/holiday/2/');
-
-
-			//expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
 		});
 	});
 });
