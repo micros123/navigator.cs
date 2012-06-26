@@ -90,6 +90,10 @@
       return this._setPath(segments);
     };
 
+    NavigationState.prototype.clone = function() {
+      return new NavigationState(this.path);
+    };
+
     return NavigationState;
 
   })();
