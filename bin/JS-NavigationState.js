@@ -24,12 +24,12 @@ NavigationState.prototype = {
 	},
 
 	getSegments: function () {
-		var segments = this._path.split("/");
+		var theSegments = this._path.split("/");
 
-		segments.pop();
-		segments.shift();
+		theSegments.pop();
+		theSegments.shift();
 
-		return segments;
+		return theSegments;
 	},
 
 	getSegment: function (aIndex) {
