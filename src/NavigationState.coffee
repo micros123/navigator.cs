@@ -46,6 +46,23 @@ window.NavigationState = class NavigationState
 
     for foreignSegment, index in foreignSegments
       nativeSegment = nativeSegments[index]
-      return false if foreignSegment != nativeSegment and (foreignSegment!="*" or nativeSegment!="*")
+      return false if not (foreignSegment == "*" or nativeSegment == "*") and foreignSegment != nativeSegment
 
     return true
+
+  equals: (state) ->
+    subtracted = @subtract(state)
+
+    if(subtracted==null)
+      return false;
+
+    return subtracted.getSegments().length == 0
+
+  subtract: (operand) ->
+    if(!@contains(operand))
+      return null
+
+    subtractedSegments = @getSegments()
+    subtractedSegments.splice 0, operand.getSegments().length
+
+    new NavigationState subtractedSegments

@@ -65,11 +65,30 @@
       for (index = _i = 0, _len = foreignSegments.length; _i < _len; index = ++_i) {
         foreignSegment = foreignSegments[index];
         nativeSegment = nativeSegments[index];
-        if (foreignSegment !== nativeSegment && (foreignSegment !== "*" || nativeSegment !== "*")) {
+        if (!(foreignSegment === "*" || nativeSegment === "*") && foreignSegment !== nativeSegment) {
           return false;
         }
       }
       return true;
+    };
+
+    NavigationState.prototype.equals = function(state) {
+      var subtracted;
+      subtracted = this.subtract(state);
+      if (subtracted === null) {
+        return false;
+      }
+      return subtracted.getSegments().length === 0;
+    };
+
+    NavigationState.prototype.subtract = function(operand) {
+      var subtractedSegments;
+      if (!this.contains(operand)) {
+        return null;
+      }
+      subtractedSegments = this.getSegments();
+      subtractedSegments.splice(0, operand.getSegments().length);
+      return new NavigationState(subtractedSegments);
     };
 
     return NavigationState;
