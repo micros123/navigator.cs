@@ -113,6 +113,21 @@
       return new NavigationState(this.getPath());
     };
 
+    NavigationState.prototype.mask = function(source) {
+      var index, length, sourceSegments, unmaskedSegments;
+      unmaskedSegments = this.getSegments();
+      sourceSegments = source.getSegments();
+      index = 0;
+      length = Math.min(unmaskedSegments.length, sourceSegments.length);
+      while (index < length) {
+        if (unmaskedSegments[index] === "*") {
+          unmaskedSegments[index] = sourceSegments[index];
+        }
+        index++;
+      }
+      return new NavigationState(unmaskedSegments);
+    };
+
     return NavigationState;
 
   })();

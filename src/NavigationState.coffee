@@ -13,10 +13,7 @@ window.NavigationState = class NavigationState
     @_path = @_path.replace (new RegExp "\/+", "g"), "/";
     @_path = @_path.replace /\s+/g, "-";
 
-    #console.log @_path
-
-  getPath: ->
-    @_path
+  getPath: -> @_path
 
   setSegments: (segments) ->
     @setPath segments.join '/'
@@ -28,11 +25,9 @@ window.NavigationState = class NavigationState
     segments.shift()
     segments
 
-  getSegment: (index) ->
-    @getSegments()[index]
+  getSegment: (index) -> @getSegments()[index]
 
-  getFirstSegment: ->
-    @getSegment(0)
+  getFirstSegment: -> @getSegment(0)
 
   getLastSegment: ->
     segments = @getSegments()
@@ -79,5 +74,16 @@ window.NavigationState = class NavigationState
 
     @setPath path + @getPath()
 
-  clone: ->
-    new NavigationState @getPath()
+  clone: -> new NavigationState @getPath()
+
+  mask: (source) ->
+    unmaskedSegments = @getSegments()
+    sourceSegments = source.getSegments()
+
+    index = 0
+    length = Math.min unmaskedSegments.length, sourceSegments.length
+    while index < length
+      unmaskedSegments[index] = sourceSegments[index] if unmaskedSegments[index] == "*"
+      index++
+
+    new NavigationState unmaskedSegments
