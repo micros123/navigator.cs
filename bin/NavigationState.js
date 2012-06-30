@@ -91,6 +91,28 @@
       return new NavigationState(subtractedSegments);
     };
 
+    NavigationState.prototype.append = function(stringOrState) {
+      var path;
+      path = stringOrState;
+      if (stringOrState instanceof NavigationState) {
+        path = stringOrState.getPath();
+      }
+      return this.setPath(this.getPath() + path);
+    };
+
+    NavigationState.prototype.prepend = function(stringOrState) {
+      var path;
+      path = stringOrState;
+      if (stringOrState instanceof NavigationState) {
+        path = stringOrState.getPath();
+      }
+      return this.setPath(path + this.getPath());
+    };
+
+    NavigationState.prototype.clone = function() {
+      return new NavigationState(this.getPath());
+    };
+
     return NavigationState;
 
   })();

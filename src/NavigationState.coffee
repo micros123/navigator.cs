@@ -66,3 +66,18 @@ window.NavigationState = class NavigationState
     subtractedSegments.splice 0, operand.getSegments().length
 
     new NavigationState subtractedSegments
+
+  append: (stringOrState) ->
+    path = stringOrState
+    path = stringOrState.getPath() if stringOrState instanceof NavigationState
+
+    @setPath @getPath() + path
+
+  prepend: (stringOrState) ->
+    path = stringOrState
+    path = stringOrState.getPath() if stringOrState instanceof NavigationState
+
+    @setPath path + @getPath()
+
+  clone: ->
+    new NavigationState @getPath()
