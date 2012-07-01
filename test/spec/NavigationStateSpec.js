@@ -1,10 +1,12 @@
 describe("NavigationState", function () {
 	var currentState;
 
+	beforeEach(function () {
+		currentState = new NavigationState("/gallery/holiday/1/");
+	});
+
 	describe("Segments", function () {
-		beforeEach(function () {
-			currentState = new NavigationState("/gallery/holiday/1/");
-		});
+
 
 		it("has three segments", function () {
 			expect(currentState.getSegments().length).toEqual(3);
@@ -189,8 +191,8 @@ describe("NavigationState", function () {
 
 	describe("State prepending by state", function () {
 		it("can be prepended multiple times by appending a state", function () {
-			var foreignState1 = new NavigationState("site");
-			var foreignState2 = new NavigationState("home");
+			var foreignState1 = new NavigationState("home");
+			var foreignState2 = new NavigationState("site");
 			currentState.prepend(foreignState1);
 			expect(currentState.getPath()).toEqual('/home/gallery/holiday/1/');
 			currentState.prepend(foreignState2);
@@ -208,16 +210,11 @@ describe("NavigationState", function () {
 	describe("Other", function () {
 		it("Can clone", function () {
 			expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
-			expect(currentState.clone()).not.toEqual(currentState);
 		});
 
 		it("handles masks", function () {
-
 			var foreignState = new NavigationState("/*/*/2/");
 			expect(foreignState.mask(currentState).getPath()).toEqual('/gallery/holiday/2/');
-
-
-			//expect(currentState.clone().getPath()).toEqual('/gallery/holiday/1/');
 		});
 	});
 });
